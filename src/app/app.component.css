@@ -1,0 +1,10 @@
+h1 {
+  font-size: 60px;
+  color: black;
+  text-align: center;
+  background: turquoise;
+}
+
+a.title-link {
+  text-decoration: none;
+}
