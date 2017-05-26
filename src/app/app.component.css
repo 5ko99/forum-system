@@ -1,10 +1,19 @@
-h1 {
-  font-size: 60px;
-  color: black;
+.title{
   text-align: center;
-  background: turquoise;
+  font-family: cursive;
 }
 
 a.title-link {
   text-decoration: none;
 }
+
+h1.page-header{
+  font-size: 50pt;
+}
+
+.upper-zone{
+  padding-left: 91%;
+  padding-top: 0.5%;
+}
+
+

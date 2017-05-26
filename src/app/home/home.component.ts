@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  // Get data from firebase
+  // TODO: Get data from firebase
   private categories: string[] = ['Web Development', '.Net'];
   constructor(private router: Router, private route: ActivatedRoute) { }
 

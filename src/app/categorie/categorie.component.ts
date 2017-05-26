@@ -9,9 +9,12 @@ import {Observable} from 'rxjs/Rx';
   styleUrls: ['./categorie.component.css']
 })
 export class CategorieComponent implements OnInit {
+  // TODO: Get Topics from firebase depends on the clickedCategorie
+  private topics: string[] = ['how to fix it', 'problem with my pc'];
   clickedCategorie: Observable<UrlSegment[]>;
   constructor(private route: ActivatedRoute) {
   }
+
   // Get object with information abbout clicked categorie
   ngOnInit() {
     this.clickedCategorie = this.route.url;

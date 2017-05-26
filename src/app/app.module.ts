@@ -7,6 +7,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { CategorieComponent } from './categorie/categorie.component';
+import { SignComponent } from './sign/sign.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -15,14 +16,16 @@ const appRoutes: Routes = [
       { path: '', redirectTo: 'web', pathMatch: 'full' },
       { path: 'Web Development', component: CategorieComponent },
       { path: '.Net', component: CategorieComponent }
-    ]}
+    ]},
+    {path: 'sign', component: SignComponent}
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    CategorieComponent
+    CategorieComponent,
+    SignComponent
   ],
   imports: [
     BrowserModule,
