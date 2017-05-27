@@ -8,6 +8,8 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { CategorieComponent } from './categorie/categorie.component';
 import { SignComponent } from './sign/sign.component';
+import { TopicComponent } from './topic/topic.component';
+import {SharedService} from './services/shared.service';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -17,7 +19,8 @@ const appRoutes: Routes = [
       { path: 'Web Development', component: CategorieComponent },
       { path: '.Net', component: CategorieComponent }
     ]},
-    {path: 'sign', component: SignComponent}
+    {path: 'sign', component: SignComponent},
+    {path: 'topic/:id', component: TopicComponent}
 ];
 
 @NgModule({
@@ -25,7 +28,8 @@ const appRoutes: Routes = [
     AppComponent,
     HomeComponent,
     CategorieComponent,
-    SignComponent
+    SignComponent,
+    TopicComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +37,7 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [SharedService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
