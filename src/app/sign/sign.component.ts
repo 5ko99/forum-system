@@ -1,5 +1,10 @@
+import { NgForm } from '@angular/forms';
 import { environment } from '../../environments/environment';
-import { Component, OnInit, Input,  } from '@angular/core';
+import { Component, OnInit, Input, } from '@angular/core';
+import { SharedService } from './../services/shared.service';
+import { UsersService } from './../services/users.service';
+
+
 
 @Component({
   selector: 'app-sign',
@@ -7,15 +12,29 @@ import { Component, OnInit, Input,  } from '@angular/core';
   styleUrls: ['./sign.component.css']
 })
 export class SignComponent implements OnInit {
-  @Input() login: boolean;
-  constructor() { }
+  constructor(private sharedService: SharedService, private userService: UsersService) { }
 
   ngOnInit() {
-    this.login = false;
+      console.log(this.userService.getEmail());
   }
 
   signIn() {
-    this.login = true;
+    this.sharedService.signIn = true;
+  }
+
+  onSubmit(myForm: NgForm) {
+    const email: string = myForm.form.value.email;
+    const password: string = myForm.form.value.pass;
+    if (this.sharedService.signIn) {
+      // Login Part
+      alert(this.userService.login(email, password));
+      console.log(this.userService.getEmail());
+    }else {
+      // Register Part
+      const username: string = myForm.form.value.username;
+      this.userService.register(email, password, username);
+      console.log(this.userService.getEmail());
+    }
   }
 
 }

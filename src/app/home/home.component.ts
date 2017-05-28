@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {SharedService} from './../services/shared.service';
+
 
 @Component({
   selector: 'app-home',
@@ -9,7 +11,7 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
   // TODO: Get data from firebase
   private categories: string[] = ['Web Development', '.Net'];
-  constructor(private router: Router) { }
+  constructor(private router: Router, private sharedService: SharedService) { }
 
   ngOnInit() {
   }

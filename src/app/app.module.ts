@@ -10,6 +10,13 @@ import { CategorieComponent } from './categorie/categorie.component';
 import { SignComponent } from './sign/sign.component';
 import { TopicComponent } from './topic/topic.component';
 import {SharedService} from './services/shared.service';
+import {UsersService} from './services/users.service';
+
+// Firebase
+import { AngularFireModule } from 'angularfire2';
+import { environment } from '../environments/environment';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -35,9 +42,12 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule, // imports firebase/database, only needed for database features
+    AngularFireAuthModule // imports firebase/auth, only needed for auth features
   ],
-  providers: [SharedService],
+  providers: [SharedService, UsersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

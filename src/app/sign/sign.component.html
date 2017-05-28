@@ -1,5 +1,5 @@
 <form (ngSubmit)="onSubmit(f)" #f="ngForm" class="col-md-offset-3 col-md-6">
-  <div *ngIf="!login" class="login-box">
+  <div *ngIf="!this.sharedService.signIn" class="login-box">
     <div class="alert alert-info">
       <strong>You already have an account?</strong>
     </div>
@@ -7,12 +7,12 @@
   </div>
 
 
-  <h2 *ngIf="!login" class="page-header">Sign Up</h2>
-  <h2 *ngIf="login" class="page-header">Sign In</h2>
+  <h2 *ngIf="!this.sharedService.signIn" class="page-header">Sign Up</h2>
+  <h2 *ngIf="this.sharedService.signIn" class="page-header">Sign In</h2>
   <div *ngIf="!f.valid && f.touched" class="alert-danger">Form is invalid</div>
   <!--Response from the firebase-->
   <!--<div class="alert-danger">{{res}}</div>  -->
-  <div *ngIf="!login" class="form-group">
+  <div *ngIf="!this.sharedService.signIn" class="form-group">
     <label class="form-control" for="username">Username</label>
     <input required class="form-control" type="text" id="username" name="username" ngModel pattern="[A-Za-z0-9\.]{3,24}">
   </div>
@@ -27,7 +27,7 @@
     <input required class="form-control" type="password" id="pass" name="pass" ngModel pattern="[a-zA-Z0-9\.-_=<>@#$%^*()+/!]{6,24}">
   </div>
 
-  <input *ngIf="!login" class="btn btn-primary" type="submit" value="Register" [disabled]="!f.valid">
-  <input *ngIf="login" class="btn btn-primary" type="submit" value="Login" [disabled]="!f.valid">
+  <input *ngIf="!this.sharedService.signIn" class="btn btn-primary" type="submit" value="Register" [disabled]="!f.valid">
+  <input *ngIf="this.sharedService.signIn" class="btn btn-primary" type="submit" value="Login" [disabled]="!f.valid">
 
 </form>

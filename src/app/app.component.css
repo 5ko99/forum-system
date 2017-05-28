@@ -16,4 +16,10 @@ h1.page-header{
   padding-top: 0.5%;
 }
 
+/*Change the color of the button same as background to trick it*/
+.invisibleBtn{
+  background-color: white;
+  border:  none;
+}
+
 
