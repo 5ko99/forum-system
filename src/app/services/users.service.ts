@@ -13,21 +13,17 @@ export class UsersService {
   constructor(db: AngularFireDatabase, public afAuth: AngularFireAuth) {
   }
 
-  login(email: string, password: string) {
-    this.afAuth.auth.signInWithEmailAndPassword(email, password).catch((err) => {
-      return err;
-    });
+  login(email: string, password: string): firebase.Promise<any> {
+    return this.afAuth.auth.signInWithEmailAndPassword(email, password);
   }
 
-  logout(): void {
-    this.afAuth.auth.signOut();
+  logout(): firebase.Promise<any> {
+    return this.afAuth.auth.signOut();
   }
 
-  register(email: string, password: string, username: string): void {
-    this.afAuth.auth.createUserWithEmailAndPassword(email, password).then((user) => {
+  register(email: string, password: string, username: string): firebase.Promise<any> {
+    return this.afAuth.auth.createUserWithEmailAndPassword(email, password).then((user) => {
       writeUserData(user.uid, username, email);
-    }).catch((err) => {
-      console.log(err.message);
     });
 
     function writeUserData(userId, _name, _email): void {
@@ -38,8 +34,8 @@ export class UsersService {
     }
   }
 
-  getCurrnetUser(): Observable<firebase.User> {
-    return this.user = this.afAuth.authState;
+  getCurrnetUser(): firebase.User {
+    return this.afAuth.auth.currentUser;
   }
 
   getUid(): string {
@@ -50,12 +46,17 @@ export class UsersService {
     return this.afAuth.auth.currentUser.displayName;
   }
 
-  getEmail() {
+  getEmail(): string {
     return this.afAuth.auth.currentUser.email;
   }
 
-  isAnonymus() {
-    return this.afAuth.auth.currentUser.isAnonymous;
+  // Function that checks if the user is logged or not- Check evry time before access user data
+  isLogged(): boolean {
+    const user: firebase.User = this.afAuth.auth.currentUser;
+    if (user) {
+      return true;
+    } else {
+      return false;
+    }
   }
-
 }

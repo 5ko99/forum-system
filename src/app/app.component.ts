@@ -1,8 +1,8 @@
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { environment } from '../environments/environment';
-import {SharedService} from './services/shared.service';
-import {UsersService} from './services/users.service';
+import { SharedService } from './services/shared.service';
+import { UsersService } from './services/users.service';
 
 
 @Component({
@@ -12,7 +12,7 @@ import {UsersService} from './services/users.service';
 })
 export class AppComponent implements OnInit {
   header = 'Forum';
-  constructor(private sharedService: SharedService,  private userService: UsersService) {
+  constructor(private sharedService: SharedService, private userService: UsersService) {
   }
 
   signUp() {
@@ -20,6 +20,10 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    // console.log(this.userService.isAnonymus());
+    setTimeout(() => {
+      console.log('aa');
+      console.log(this.userService.getEmail());
+    }, 2000);
+    console.log('this.userService.getEmail()');
   }
 }

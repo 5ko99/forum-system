@@ -19,7 +19,7 @@ export class TopicComponent implements OnInit {
 
   ngOnInit() {
     this.topic = this.sharedService.selectedTopic;
-    console.log(this.userService.getEmail());
+    // console.log(this.userService.getEmail());
   }
 
   addPost(myForm: NgForm) {
