@@ -3,6 +3,7 @@ import { environment } from '../../environments/environment';
 import { Component, OnInit, Input, } from '@angular/core';
 import { SharedService } from './../services/shared.service';
 import { UsersService } from './../services/users.service';
+import { Router } from '@angular/router';
 
 
 
@@ -12,7 +13,7 @@ import { UsersService } from './../services/users.service';
   styleUrls: ['./sign.component.css']
 })
 export class SignComponent implements OnInit {
-  constructor(private sharedService: SharedService, private userService: UsersService) { }
+  constructor(private sharedService: SharedService, private userService: UsersService, private router: Router) { }
 
   ngOnInit() {
     // console.log(this.userService.isLogged());
@@ -28,7 +29,8 @@ export class SignComponent implements OnInit {
     if (this.sharedService.signIn) {
       // Login Part
       this.userService.login(email, password).then((user) => {
-        return true;
+        // Logged
+        this.router.navigate(['/']);
       }).catch((err) => {
         console.log(err.message);
       });
@@ -36,7 +38,8 @@ export class SignComponent implements OnInit {
       // Register Part
       const username: string = myForm.form.value.username;
       this.userService.register(email, password, username).then((user) => {
-        return true;
+        // Registered
+        this.router.navigate(['/']);
       }).catch((err) => {
         // Get error
         console.log(err.message);

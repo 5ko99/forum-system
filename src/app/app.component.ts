@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { environment } from '../environments/environment';
 import { SharedService } from './services/shared.service';
 import { UsersService } from './services/users.service';
+import { Observable } from 'rxjs/Rx';
+import * as firebase from 'firebase/auth';
 
 
 @Component({
@@ -11,8 +13,11 @@ import { UsersService } from './services/users.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  authInfo: Observable<firebase.UserInfo>;
   header = 'Forum';
+  logged = false;
   constructor(private sharedService: SharedService, private userService: UsersService) {
+    this.authInfo = this.userService.authInfo;
   }
 
   signUp() {
@@ -20,10 +25,20 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    setTimeout(() => {
-      console.log('aa');
-      console.log(this.userService.getEmail());
-    }, 2000);
-    console.log('this.userService.getEmail()');
+    this.authInfo.subscribe((snapshot) => {
+      // Check if the user is loged and if is change the button
+      if (snapshot) {
+        this.logged = true;
+      }
+    });
+  }
+
+  logOut() {
+    this.userService.logout().then((data) => {
+      // Successuful LogOuted
+      this.logged = false;
+    }, (err) => {
+      console.log(err.message);
+    });
   }
 }

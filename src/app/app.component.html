@@ -1,7 +1,8 @@
 <div class="nav-bar" div>
   <div class="upper-zone">
-   <button  (click) = "signUp()" class="invisibleBtn"> <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="sign" class="btn btn-sm btn-primary"  ><span class="glyphicon glyphicon-log-in"></span>Sign Up</a></button> 
-  </div>
+    <button *ngIf="!logged" (click)="signUp()" class="invisibleBtn"> <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="sign" class="btn btn-sm btn-primary"  ><span class="glyphicon glyphicon-log-in"></span>Sign Up</a></button>
+    <button (click)="logOut()" *ngIf="logged" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-log-out"></span> Sign out</button> 
+    </div>
   <div class="title">
     <a class="title-link" routerLink="home">
       <h1 class="page-header">{{header}}</h1>
@@ -11,4 +12,5 @@
     <li> <a role="presentation" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="home">Home</a></li>
   </ul>
 </div>
+<!-- Get info like this <div>{{ (authInfo | async)?.uid }}</div>-->
 <router-outlet></router-outlet>

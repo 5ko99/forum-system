@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/Rx';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 
@@ -9,8 +10,9 @@ import * as firebase from 'firebase/app';
 @Injectable()
 export class UsersService {
   user: Observable<firebase.User>;
-
-  constructor(db: AngularFireDatabase, public afAuth: AngularFireAuth) {
+  public authInfo = new BehaviorSubject<firebase.UserInfo>(undefined);
+  constructor(private db: AngularFireDatabase, public afAuth: AngularFireAuth) {
+    this.afAuth.auth.onAuthStateChanged(authInfo => this.authInfo.next(authInfo));
   }
 
   login(email: string, password: string): firebase.Promise<any> {
@@ -27,36 +29,10 @@ export class UsersService {
     });
 
     function writeUserData(userId, _name, _email): void {
-      firebase.database().ref('users/' + userId).set({
+      firebase.database().ref('/users/' + userId).set({
         username: _name,
         email: _email,
       });
-    }
-  }
-
-  getCurrnetUser(): firebase.User {
-    return this.afAuth.auth.currentUser;
-  }
-
-  getUid(): string {
-    return this.afAuth.auth.currentUser.uid;
-  }
-
-  getName(): string {
-    return this.afAuth.auth.currentUser.displayName;
-  }
-
-  getEmail(): string {
-    return this.afAuth.auth.currentUser.email;
-  }
-
-  // Function that checks if the user is logged or not- Check evry time before access user data
-  isLogged(): boolean {
-    const user: firebase.User = this.afAuth.auth.currentUser;
-    if (user) {
-      return true;
-    } else {
-      return false;
     }
   }
 }
