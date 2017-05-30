@@ -1,8 +1,9 @@
 <div class="nav-bar" div>
   <div class="upper-zone">
     <button *ngIf="!logged" (click)="signUp()" class="invisibleBtn"> <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="sign" class="btn btn-sm btn-primary"  ><span class="glyphicon glyphicon-log-in"></span>Sign Up</a></button>
-    <button (click)="logOut()" *ngIf="logged" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-log-out"></span> Sign out</button> 
-    </div>
+    <button (click)="logOut()" *ngIf="logged" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-log-out"></span> Sign out</button>
+    <div>User: {{ (authInfo | async)?.email }}</div>
+  </div>
   <div class="title">
     <a class="title-link" routerLink="home">
       <h1 class="page-header">{{header}}</h1>
