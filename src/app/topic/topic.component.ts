@@ -3,6 +3,10 @@ import {NgForm} from '@angular/forms';
 import {Post} from '.././models/post.model';
 import {SharedService} from './../services/shared.service';
 import {UsersService} from '.././services/users.service';
+
+import { Observable } from 'rxjs/Rx';
+import * as firebase from 'firebase/auth';
+
 @Component({
   selector: 'app-topic',
   templateUrl: './topic.component.html',
@@ -12,9 +16,11 @@ export class TopicComponent implements OnInit {
   // Get post for this topic in this array
   posts: Post[];
   topic: string;
+  authInfo: Observable<firebase.UserInfo>;
   constructor(private sharedService: SharedService, private userService: UsersService) {
     this.posts = [new Post('Petko', 'Help me please', 0),
     new Post('Ivan', 'I am helping you', 0)];
+    this.authInfo = this.userService.authInfo;
   }
 
   ngOnInit() {
@@ -24,10 +30,14 @@ export class TopicComponent implements OnInit {
 
   addPost(myForm: NgForm) {
     // Add post to db
+    let post: Post;
     const postText: string =  myForm.form.value.postText;
-    const postAuthor: string = myForm.form.value.postAuthor;
-    const post: Post = new Post(postText, postAuthor, 0);
-    this.posts.push(post);
+    let postAuthor: string;
+    this.authInfo.subscribe((snapshot) => {
+      postAuthor = snapshot.email;
+      post = new Post(postAuthor, postText, 0);
+      this.posts.push(post);
+    });
   }
 
 }

@@ -1,6 +1,8 @@
+import { FirebaseListObservable } from 'angularfire2/database/firebase_list_observable';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {SharedService} from './../services/shared.service';
+import {DataService} from './../services/data.service';
 
 
 @Component({
@@ -10,8 +12,11 @@ import {SharedService} from './../services/shared.service';
 })
 export class HomeComponent implements OnInit {
   // TODO: Get data from firebase
-  private categories: string[] = ['Web Development', '.Net'];
-  constructor(private router: Router, private sharedService: SharedService) { }
+  private categories: FirebaseListObservable<any>;
+  constructor(private router: Router, private sharedService: SharedService, private dataService: DataService) {
+    this.categories = this.dataService.getDataList('/categories');
+    console.log(this.categories);
+   }
 
   ngOnInit() {
   }

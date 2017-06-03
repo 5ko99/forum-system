@@ -11,6 +11,8 @@ import { SignComponent } from './sign/sign.component';
 import { TopicComponent } from './topic/topic.component';
 import {SharedService} from './services/shared.service';
 import {UsersService} from './services/users.service';
+import {DataService} from './services/data.service';
+
 
 // Firebase
 import { AngularFireModule } from 'angularfire2';
@@ -47,7 +49,7 @@ const appRoutes: Routes = [
     AngularFireDatabaseModule, // imports firebase/database, only needed for database features
     AngularFireAuthModule // imports firebase/auth, only needed for auth features
   ],
-  providers: [SharedService, UsersService],
+  providers: [SharedService, UsersService, DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
