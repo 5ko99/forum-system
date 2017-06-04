@@ -19,6 +19,7 @@ import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AskComponent } from './ask/ask.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -26,7 +27,7 @@ const appRoutes: Routes = [
   { path: 'categorie',  children: [
       { path: '', redirectTo: 'web', pathMatch: 'full' },
       { path: 'Web Development', component: CategorieComponent },
-      { path: '.Net', component: CategorieComponent }
+      { path: 'Net', component: CategorieComponent }
     ]},
     {path: 'sign', component: SignComponent},
     {path: 'topic/:id', component: TopicComponent}
@@ -38,7 +39,8 @@ const appRoutes: Routes = [
     HomeComponent,
     CategorieComponent,
     SignComponent,
-    TopicComponent
+    TopicComponent,
+    AskComponent
   ],
   imports: [
     BrowserModule,

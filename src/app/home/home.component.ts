@@ -15,7 +15,6 @@ export class HomeComponent implements OnInit {
   private categories: FirebaseListObservable<any>;
   constructor(private router: Router, private sharedService: SharedService, private dataService: DataService) {
     this.categories = this.dataService.getDataList('/categories');
-    console.log(this.categories);
    }
 
   ngOnInit() {
@@ -23,8 +22,8 @@ export class HomeComponent implements OnInit {
 
 
   // This router naviget to the right sub-categorie
-  private onSelect(categorie: string) {
-    this.router.navigate(['/categorie/', categorie]);
+  private onSelect(categorie) {
+    this.router.navigate(['/categorie/', categorie.categorie]);
   }
 
 }
