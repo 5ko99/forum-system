@@ -1,3 +1,25 @@
-<p>
-  ask works!
-</p>
+<form (ngSubmit)="onSubmit(f)" #f="ngForm" class="col-md-offset-3 col-md-6">
+  <br>
+  <label class="col-md-4 control-label" for="selectbasic">Categorie</label>
+  <div class="col-md-4">
+    <select required tabindex="0" ngModel id="selectbasic" name="selectbasic" class="form-control">
+      <option *ngFor="let categorie of categories | async"  [selected]="categorie.categorie === this.sharedService.categorieToAks && this.sharedService.categorieToAks">{{categorie.categorie}}</option> 
+    </select>
+  </div>
+  <br>
+  <br>
+
+  <label for="title">Title</label>
+  <input required ngModel id="title" name="title" type="text" maxlength="300" tabindex="1" placeholder="What's your question? Be specific."
+    class="form-control" data-min-length="15" data-max-length="150"  autocomplete="off">
+
+  <br>
+  <textarea required ngModel class="form-control" id="postText" class="wmd-input processed" name="postText" cols="92" rows="15" tabindex="2"
+    data-min-length=""></textarea>
+
+  <br>
+  <button tabindex="3" type="submit" [disabled]="!f.valid" class="invisibleBtn">
+    <a class="btn btn-primary btn-success">Post Your Question 
+  <span class="glyphicon glyphicon-question-sign"></span></a></button>
+
+</form>

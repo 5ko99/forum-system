@@ -33,6 +33,10 @@ export class AppComponent implements OnInit {
       if (snapshot) {
         const uid = snapshot.uid;
         this.userInfo = this.dataService.getData('/users/' + uid);
+        this.userInfo.subscribe((snapshot2) => {
+          this.sharedService.loggedUser = snapshot2.username;
+          this.sharedService.loggedUserUID = uid;
+        });
         this.logged = true;
       }
     });

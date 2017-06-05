@@ -26,7 +26,7 @@ export class CategorieComponent implements OnInit {
       data.subscribe((snapshot) => {
         // snapshot.lenght - 1 because the last is the categorie name !!Look Firebase!!
         for (let i = 0; i < snapshot.length - 1; i++) {
-          this.topics[i] = snapshot[i].topicTitle;
+          this.topics[i] = snapshot[i].title;
         }
       });
     });
@@ -35,6 +35,10 @@ export class CategorieComponent implements OnInit {
   onSelect(topic: string) {
     this.sharedService.selectedTopic = topic;
     this.router.navigate(['/topic/1']);
+  }
+
+  ask(): void {
+    this.router.navigate(['/questions/ask']);
   }
 
 }

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {NgForm} from '@angular/forms';
-import {Post} from '.././models/post.model';
-import {SharedService} from './../services/shared.service';
-import {UsersService} from '.././services/users.service';
+import { NgForm } from '@angular/forms';
+import { Comment } from '.././models/comment.model';
+import { SharedService } from './../services/shared.service';
+import { UsersService } from '.././services/users.service';
 
 import { Observable } from 'rxjs/Rx';
 import * as firebase from 'firebase/auth';
@@ -14,12 +14,12 @@ import * as firebase from 'firebase/auth';
 })
 export class TopicComponent implements OnInit {
   // Get post for this topic in this array
-  posts: Post[];
+  posts: Comment[];
   topic: string;
   authInfo: Observable<firebase.UserInfo>;
   constructor(private sharedService: SharedService, private userService: UsersService) {
-    this.posts = [new Post('Petko', 'Help me please', 0),
-    new Post('Ivan', 'I am helping you', 0)];
+    this.posts = [new Comment('Petko', 'UID', 'Help me please'),
+    new Comment('Ivan', 'UID', 'I am helping you')];
     this.authInfo = this.userService.authInfo;
   }
 
@@ -30,12 +30,12 @@ export class TopicComponent implements OnInit {
 
   addPost(myForm: NgForm) {
     // Add post to db
-    let post: Post;
-    const postText: string =  myForm.form.value.postText;
+    let post: Comment;
+    const postText: string = myForm.form.value.postText;
     let postAuthor: string;
     this.authInfo.subscribe((snapshot) => {
       postAuthor = snapshot.email;
-      post = new Post(postAuthor, postText, 0);
+      post = new Comment(postAuthor, 'uid', postText, );
       this.posts.push(post);
     });
   }

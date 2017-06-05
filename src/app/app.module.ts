@@ -30,7 +30,8 @@ const appRoutes: Routes = [
       { path: 'Net', component: CategorieComponent }
     ]},
     {path: 'sign', component: SignComponent},
-    {path: 'topic/:id', component: TopicComponent}
+    {path: 'topic/:id', component: TopicComponent},
+    {path: 'questions/ask', component: AskComponent}
 ];
 
 @NgModule({

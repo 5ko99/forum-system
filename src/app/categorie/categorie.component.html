@@ -1,5 +1,5 @@
 <h1>{{clickedCategorie._value[0].path}}</h1>
-<div class="asaide"><a href="#" class="btn btn-primary btn-primary"><span class="add"></span> Ask Question</a></div>
+<div class="asaide"><a (click)="ask()" class="btn btn-primary btn-primary"><span class="add"></span> Ask Question</a></div>
 <ul>
   <li *ngFor="let topic of topics"><h3> <a (click)="onSelect(topic)" > {{topic}} </a> </h3> </li> 
 </ul>

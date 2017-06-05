@@ -11,7 +11,7 @@ import {DataService} from './../services/data.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  // TODO: Get data from firebase
+  // Get data from firebase
   private categories: FirebaseListObservable<any>;
   constructor(private router: Router, private sharedService: SharedService, private dataService: DataService) {
     this.categories = this.dataService.getDataList('/categories');
@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
 
   // This router naviget to the right sub-categorie
   private onSelect(categorie) {
+    this.sharedService.categorieToAks = categorie.categorie;
     this.router.navigate(['/categorie/', categorie.categorie]);
   }
 
