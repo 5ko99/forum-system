@@ -1,4 +1,5 @@
 import { Question } from '../models/question.model';
+import {Comment} from '../models/comment.model';
 import { DatabaseSnapshot } from 'angularfire2/interfaces';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
@@ -27,6 +28,17 @@ export class DataService {
     itemObservable.set({
       author: question.getAuthor(),
       title: question.getTitle(),
+      text: question.getText(),
+      date: question.getDate()
+    });
+  }
+
+  public writeAnswer(path: string, question: Comment): void {
+    const generator: Generator = new Generator();
+    path += generator.generate(Date.now());
+    const itemObservable = this.db.object(path);
+    itemObservable.set({
+      author: question.getAuthor(),
       text: question.getText(),
       date: question.getDate()
     });

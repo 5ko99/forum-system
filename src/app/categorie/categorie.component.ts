@@ -13,6 +13,7 @@ import { DataService } from './../services/data.service';
 export class CategorieComponent implements OnInit {
   // TODO: Get Topics from firebase depends on the clickedCategorie
   private snapshots;
+  private categorie: string;
   clickedCategorie: Observable<UrlSegment[]>;
   constructor(private route: ActivatedRoute, private sharedService: SharedService, private router: Router,
     private dataService: DataService) {
@@ -23,6 +24,7 @@ export class CategorieComponent implements OnInit {
     this.clickedCategorie = this.route.url;
     this.clickedCategorie.subscribe((url) => {
       const data = this.dataService.getDataList('/categories/' + url[0].path);
+      this.categorie = url[0].path;
       data.subscribe((snapshot) => {
         this.snapshots = snapshot;
       });
@@ -30,8 +32,7 @@ export class CategorieComponent implements OnInit {
   }
 
   onSelect(topic) {
-    this.sharedService.selectedTopic = topic;
-    this.router.navigate(['/topic/' + topic.$key]); // $key in uid of evry post
+    this.router.navigate(['/categorie/' + this.categorie + '/' + topic.$key]); // $key in uid of evry post
   }
 
   ask(): void {

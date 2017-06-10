@@ -26,11 +26,13 @@ const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'categorie',  children: [
       { path: '', redirectTo: 'web', pathMatch: 'full' },
-      { path: 'Web Development', component: CategorieComponent },
-      { path: 'Net', component: CategorieComponent }
+      { path: 'Web Development', component: CategorieComponent},
+      { path: 'Web Development/:id', component: TopicComponent},
+      { path: 'Net', component: CategorieComponent },
+      { path: 'Net/:id', component: TopicComponent }
     ]},
     {path: 'sign', component: SignComponent},
-    {path: 'topic/:id', component: TopicComponent},
+    //{path: 'topic/:id', component: TopicComponent},
     {path: 'questions/ask', component: AskComponent}
 ];
 

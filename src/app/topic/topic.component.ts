@@ -4,6 +4,7 @@ import { Comment } from '.././models/comment.model';
 import { SharedService } from './../services/shared.service';
 import { UsersService } from '.././services/users.service';
 import { DataService } from '.././services/data.service';
+import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs/Rx';
 import * as firebase from 'firebase/auth';
@@ -17,26 +18,28 @@ export class TopicComponent implements OnInit {
   // Get post for this topic in this array
   posts: Comment[];
   topic: string;
+  urlPath = ['', ''];
   authInfo: Observable<firebase.UserInfo>;
-  constructor(private sharedService: SharedService, private userService: UsersService, private dataService: DataService) {
-    this.posts = [new Comment('Petko', 'UID', 'Help me please'),
-    new Comment('Ivan', 'UID', 'I am helping you')];
+  constructor(private sharedService: SharedService, private userService: UsersService, private dataService: DataService,
+    private route: ActivatedRoute) {
+    this.posts = [new Comment('Petko', 'Help me please'),
+    new Comment('Ivan', 'I am helping you')];
     this.authInfo = this.userService.authInfo;
   }
 
   ngOnInit() {
-    if (this.sharedService.selectedTopic && this.sharedService.categorieToAks) {
-      // Is not empty
-      this.topic = this.sharedService.selectedTopic.title;
+    // Get from db and url info abbout this topic the link is pasted
+    this.route.url.subscribe((url) => {
       const dataRef = this.dataService.getData('/categories/' +
-      this.sharedService.categorieToAks + '/' + this.sharedService.selectedTopic.$key);
-    dataRef.subscribe((snapshot) => {
-      // Work with data
-      console.log(snapshot.author);
+        url[0].path + '/' + url[1].path);
+      dataRef.subscribe((snapshot) => {
+        // Work with data
+        this.topic = snapshot.title;
+        console.log(snapshot.author);
+      });
+      this.urlPath[0] = url[0].path;
+      this.urlPath[1] = url[1].path;
     });
-    } else {
-      // Is empty: get from db info abbout this topic the link is pasted
-    }
   }
 
   addPost(myForm: NgForm) {
@@ -46,7 +49,9 @@ export class TopicComponent implements OnInit {
     let postAuthor: string;
     this.authInfo.subscribe((snapshot) => {
       postAuthor = snapshot.email;
-      post = new Comment(postAuthor, 'uid', postText, );
+      post = new Comment(postAuthor, postText, );
+      const path = '/categories/' + this.urlPath[0] + '/' + this.urlPath[1] + '/answers/';
+      this.dataService.writeAnswer(path, post);
       this.posts.push(post);
     });
   }
