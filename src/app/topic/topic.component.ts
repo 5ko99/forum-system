@@ -1,3 +1,4 @@
+import { FirebaseListObservable } from 'angularfire2/database/firebase_list_observable';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Comment } from '.././models/comment.model';
@@ -16,32 +17,33 @@ import * as firebase from 'firebase/auth';
 })
 export class TopicComponent implements OnInit {
   // Get post for this topic in this array
-  posts: Comment[];
   topic: string;
   urlPath = ['', ''];
   authInfo: Observable<firebase.UserInfo>;
+  answersRefs;
   constructor(private sharedService: SharedService, private userService: UsersService, private dataService: DataService,
     private route: ActivatedRoute) {
-    this.posts = [new Comment('Petko', 'Help me please'),
-    new Comment('Ivan', 'I am helping you')];
     this.authInfo = this.userService.authInfo;
   }
 
   ngOnInit() {
     // Get from db and url info abbout this topic the link is pasted
     this.route.url.subscribe((url) => {
-      const dataRef = this.dataService.getData('/categories/' +
-        url[0].path + '/' + url[1].path);
+      const data: string = '/categories/' + url[0].path + '/' + url[1].path;
+      const dataRef = this.dataService.getData(data);
       dataRef.subscribe((snapshot) => {
         // Work with data
         this.topic = snapshot.title;
-        console.log(snapshot.author);
       });
+      this.answersRefs = this.dataService.getDataList(data + '/answers');
       this.urlPath[0] = url[0].path;
       this.urlPath[1] = url[1].path;
     });
+
+
   }
 
+  // TODO: Save no email info and username to user
   addPost(myForm: NgForm) {
     // Add post to db
     let post: Comment;
@@ -49,10 +51,9 @@ export class TopicComponent implements OnInit {
     let postAuthor: string;
     this.authInfo.subscribe((snapshot) => {
       postAuthor = snapshot.email;
-      post = new Comment(postAuthor, postText, );
+      post = new Comment(postAuthor, postText);
       const path = '/categories/' + this.urlPath[0] + '/' + this.urlPath[1] + '/answers/';
       this.dataService.writeAnswer(path, post);
-      this.posts.push(post);
     });
   }
 

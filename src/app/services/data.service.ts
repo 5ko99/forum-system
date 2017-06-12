@@ -36,11 +36,12 @@ export class DataService {
   public writeAnswer(path: string, question: Comment): void {
     const generator: Generator = new Generator();
     path += generator.generate(Date.now());
+    console.log(question.getDate());
     const itemObservable = this.db.object(path);
     itemObservable.set({
       author: question.getAuthor(),
       text: question.getText(),
-      date: question.getDate()
+      date: question.getDate().toString()
     });
   }
 

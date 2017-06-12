@@ -1,6 +1,7 @@
 <h1>{{topic}}</h1>
+
 <ul>
-  <li *ngFor="let post of posts">{{post.getAuthor()}}: {{post.getText()}}- {{post.getDate() | date}}</li>
+  <li *ngFor="let ref of answersRefs | async">{{ref.author}}: {{ref.text}}- {{ref.date | date}}</li>
 </ul>
 
 <form (ngSubmit)="addPost(f)" #f="ngForm">
