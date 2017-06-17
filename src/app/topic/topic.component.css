@@ -1,0 +1,17 @@
+textarea{
+    margin-left: 3%;
+}
+input.post{
+      text-decoration: none;
+      background-color: transparent;
+      border: none;
+}
+div.btn{
+    margin-left: 3%;
+}
+
+textarea.answer{
+    background-color: white;
+    resize: none;
+    border: none;
+}

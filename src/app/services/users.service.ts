@@ -24,8 +24,9 @@ export class UsersService {
   }
 
   register(email: string, password: string, username: string): firebase.Promise<any> {
-    return this.afAuth.auth.createUserWithEmailAndPassword(email, password).then((user) => {
+    return this.afAuth.auth.createUserWithEmailAndPassword(email, password).then((user:  firebase.User) => {
       writeUserData(user.uid, username, email);
+      user.updateProfile({displayName: username, photoURL: ''});
     });
 
     function writeUserData(userId, _name, _email): void {

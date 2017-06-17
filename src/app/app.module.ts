@@ -12,7 +12,7 @@ import { TopicComponent } from './topic/topic.component';
 import {SharedService} from './services/shared.service';
 import {UsersService} from './services/users.service';
 import {DataService} from './services/data.service';
-
+import {Autosize} from '../../node_modules/angular2-autosize/angular2-autosize';
 
 // Firebase
 import { AngularFireModule } from 'angularfire2';
@@ -43,7 +43,8 @@ const appRoutes: Routes = [
     CategorieComponent,
     SignComponent,
     TopicComponent,
-    AskComponent
+    AskComponent,
+    Autosize
   ],
   imports: [
     BrowserModule,

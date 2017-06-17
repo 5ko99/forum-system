@@ -20,11 +20,13 @@
     "@angular/platform-browser": "^4.0.0",
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
+    "angular2-autosize": "^1.0.1",
     "angularfire2": "^4.0.0-rc.0",
     "core-js": "^2.4.1",
     "firebase": "^4.0.0",
     "firebase-auto-ids": "^1.1.0",
     "jquery": "^3.2.1",
+    "react-autosize-textarea": "^0.4.4",
     "rxjs": "^5.1.0",
     "zone.js": "^0.8.4"
   },

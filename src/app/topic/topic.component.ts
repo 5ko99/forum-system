@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import * as firebase from 'firebase/auth';
 
+
 @Component({
   selector: 'app-topic',
   templateUrl: './topic.component.html',
@@ -39,8 +40,6 @@ export class TopicComponent implements OnInit {
       this.urlPath[0] = url[0].path;
       this.urlPath[1] = url[1].path;
     });
-
-
   }
 
   // TODO: Save no email info and username to user
@@ -49,8 +48,9 @@ export class TopicComponent implements OnInit {
     let post: Comment;
     const postText: string = myForm.form.value.postText;
     let postAuthor: string;
-    this.authInfo.subscribe((snapshot) => {
-      postAuthor = snapshot.email;
+    this.authInfo.subscribe((user: firebase.User) => {
+      console.log(user);
+      postAuthor = user.displayName;
       post = new Comment(postAuthor, postText);
       const path = '/categories/' + this.urlPath[0] + '/' + this.urlPath[1] + '/answers/';
       this.dataService.writeAnswer(path, post);

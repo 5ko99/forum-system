@@ -1,10 +1,15 @@
 <h1>{{topic}}</h1>
 
 <ul>
-  <li *ngFor="let ref of answersRefs | async">{{ref.author}}: {{ref.text}}- {{ref.date | date}}</li>
+  <li *ngFor="let ref of answersRefs | async"><div>{{ref.author}} - {{ref.date | date}}</div> 
+  <textarea autosize class="answer" disabled  cols="150">{{ref.text}}</textarea> <hr></li>
 </ul>
 
 <form (ngSubmit)="addPost(f)" #f="ngForm">
-  <input required  type="text" id="postText" name="postText" ngModel> 
-  <input type="submit" value="Add Post">
+  <br>
+  <textarea autosize required ngModel class="form-control"  id="postText" class="wmd-input processed" name="postText" cols="100" rows="5"  tabindex="1"
+    data-min-length=""></textarea>
+  <br>
+  <div class="btn btn-primary btn-primary" ><input class="post" type="submit" value="Post Your Answer"></div>
 </form>
+
