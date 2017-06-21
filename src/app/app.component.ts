@@ -7,6 +7,9 @@ import { UsersService } from './services/users.service';
 import { Observable } from 'rxjs/Rx';
 import * as firebase from 'firebase/auth';
 import { DataService } from './services/data.service';
+import { FirebaseListObservable } from 'angularfire2/database/firebase_list_observable';
+import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -19,8 +22,11 @@ export class AppComponent implements OnInit {
   header = 'Forum';
   logged = false;
   userInfo: FirebaseObjectObservable<any>;
-  constructor(private sharedService: SharedService, private userService: UsersService, private dataService: DataService) {
+  private categories: FirebaseListObservable<any>;
+  constructor(private sharedService: SharedService, private userService: UsersService, private dataService: DataService,
+  private router: Router) {
     this.authInfo = this.userService.authInfo;
+    this.categories = this.dataService.getDataList('/categories');
   }
 
   signUp() {
@@ -49,5 +55,11 @@ export class AppComponent implements OnInit {
     }, (err) => {
       console.log(err.message);
     });
+  }
+
+   // This router naviget to the right sub-categorie
+  private onSelect(categorie) {
+    this.sharedService.categorieToAks = categorie.$key;
+    this.router.navigate(['/categorie/', categorie.$key]);
   }
 }

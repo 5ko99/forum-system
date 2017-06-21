@@ -1,5 +1,5 @@
 <h1>{{clickedCategorie._value[0].path}}</h1>
-<div class="asaide"><a (click)="ask()" class="btn btn-primary btn-primary"><span class="add"></span> Ask Question</a></div>
+<div *ngIf="authInfo | async" class="asaide"><a (click)="ask()" class="btn btn-primary btn-primary"><span class="add"></span> Ask Question</a></div>
 <ul>
   <li *ngFor="let snapshot of snapshots"><h3> <a (click)="onSelect(snapshot)" >  {{snapshot.title}} </a> </h3> </li> 
 </ul>

@@ -4,6 +4,8 @@ import { ActivatedRoute, UrlSegment, Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { SharedService } from './../services/shared.service';
 import { DataService } from './../services/data.service';
+import * as firebase from 'firebase/auth';
+import { UsersService } from '.././services/users.service';
 
 @Component({
   selector: 'app-categorie',
@@ -15,8 +17,10 @@ export class CategorieComponent implements OnInit {
   private snapshots;
   private categorie: string;
   clickedCategorie: Observable<UrlSegment[]>;
+  authInfo: Observable<firebase.UserInfo>;
   constructor(private route: ActivatedRoute, private sharedService: SharedService, private router: Router,
-    private dataService: DataService) {
+    private dataService: DataService, private userService: UsersService) {
+      this.authInfo = this.userService.authInfo;
   }
 
   // Get object with information abbout clicked categorie
