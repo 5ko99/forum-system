@@ -32,7 +32,6 @@ const appRoutes: Routes = [
       { path: 'Net/:id', component: TopicComponent }
     ]},
     {path: 'sign', component: SignComponent},
-    //{path: 'topic/:id', component: TopicComponent},
     {path: 'questions/ask', component: AskComponent}
 ];
 

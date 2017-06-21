@@ -1,5 +1,5 @@
 import { NgForm } from '@angular/forms/src/directives';
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DataService } from './../services/data.service';
 import { SharedService } from '../services/shared.service';
 import { Question } from './../models/question.model';
@@ -11,7 +11,7 @@ import { FirebaseListObservable } from 'angularfire2/database/firebase_list_obse
   templateUrl: './ask.component.html',
   styleUrls: ['./ask.component.css']
 })
-export class AskComponent implements OnInit, AfterViewInit {
+export class AskComponent implements OnInit {
   private categories: FirebaseListObservable<any>;
   constructor(private dataService: DataService, private sharedService: SharedService) {
     this.categories = this.dataService.getDataList('/categories');
@@ -20,13 +20,9 @@ export class AskComponent implements OnInit, AfterViewInit {
   ngOnInit() {
   }
 
-  ngAfterViewInit() {
-  }
-
   onSubmit(myForm: NgForm) {
     if (myForm.form.value.selectbasic && myForm.form.value.title && myForm.form.value.postText  && myForm.form.valid ) {
       const categorie: string = myForm.form.value.selectbasic;
-      console.log(categorie);
       const path = '/categories/' + categorie + '/';
       const userName: string = this.sharedService.loggedUser;
       const title: string = myForm.form.value.title;

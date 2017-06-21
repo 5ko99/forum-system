@@ -22,6 +22,8 @@ export class TopicComponent implements OnInit {
   urlPath = ['', ''];
   authInfo: Observable<firebase.UserInfo>;
   answersRefs;
+  questionText: string;
+  questionAuthor: string;
   constructor(private sharedService: SharedService, private userService: UsersService, private dataService: DataService,
     private route: ActivatedRoute) {
     this.authInfo = this.userService.authInfo;
@@ -35,6 +37,8 @@ export class TopicComponent implements OnInit {
       dataRef.subscribe((snapshot) => {
         // Work with data
         this.topic = snapshot.title;
+        this.questionText = snapshot.text;
+        this.questionAuthor = snapshot.author;
       });
       this.answersRefs = this.dataService.getDataList(data + '/answers');
       this.urlPath[0] = url[0].path;
