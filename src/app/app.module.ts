@@ -29,7 +29,11 @@ const appRoutes: Routes = [
       { path: 'Web Development', component: CategorieComponent},
       { path: 'Web Development/:id', component: TopicComponent},
       { path: 'Net', component: CategorieComponent },
-      { path: 'Net/:id', component: TopicComponent }
+      { path: 'Net/:id', component: TopicComponent },
+      { path: 'Java', component: CategorieComponent },
+      { path: 'Java/:id', component: TopicComponent },
+      { path: 'Android', component: CategorieComponent },
+      { path: 'Android/:id', component: TopicComponent }
     ]},
     {path: 'sign', component: SignComponent},
     {path: 'questions/ask', component: AskComponent}

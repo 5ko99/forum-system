@@ -4,7 +4,7 @@ export class Comment {
     private postText: string;
     private postDate: Date;
     private postRating: number;
-    public constructor(_postAuthor: string, _postText: string, ) {
+    public constructor(_postAuthor: string, _postText: string) {
         this.postAuthor = _postAuthor;
         this.postText = _postText;
         this.postDate = new Date();

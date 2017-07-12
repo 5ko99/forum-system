@@ -16,3 +16,7 @@ textarea.answer{
     border: none;
     font-size: 12pt;
 }
+
+#delete{
+  margin-left: 90%;
+}

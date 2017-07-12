@@ -24,6 +24,7 @@ export class TopicComponent implements OnInit {
   answersRefs;
   questionText: string;
   questionAuthor: string;
+  canDelete = false;
   constructor(private sharedService: SharedService, private userService: UsersService, private dataService: DataService,
     private route: ActivatedRoute) {
     this.authInfo = this.userService.authInfo;
@@ -44,6 +45,10 @@ export class TopicComponent implements OnInit {
       this.urlPath[0] = url[0].path;
       this.urlPath[1] = url[1].path;
     });
+
+    if(this.questionAuthor === this.sharedService.loggedUser){
+      this.canDelete = true;
+    }
   }
 
   // TODO: Save no email info and username to user
@@ -53,7 +58,6 @@ export class TopicComponent implements OnInit {
     const postText: string = myForm.form.value.postText;
     let postAuthor: string;
     this.authInfo.subscribe((user: firebase.User) => {
-      console.log(user);
       postAuthor = user.displayName;
       post = new Comment(postAuthor, postText);
       const path = '/categories/' + this.urlPath[0] + '/' + this.urlPath[1] + '/answers/';

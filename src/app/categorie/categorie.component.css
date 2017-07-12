@@ -1,3 +1,7 @@
 .asaide{
     padding-left: 0.5%;
 }
+ul{
+  display: flex;
+   flex-direction: column-reverse;
+}

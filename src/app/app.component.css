@@ -3,8 +3,14 @@
   font-family: cursive;
 }
 
-a.title-link {
+a{
+  margin-left: 10;
   text-decoration: none;
+}
+
+li{
+  padding: 0;
+  margin: 0;
 }
 
 h1.page-header{
@@ -15,10 +21,3 @@ h1.page-header{
   padding-left: 91%;
   padding-top: 0.5%;
 }
-
-
-
-
-
-
-

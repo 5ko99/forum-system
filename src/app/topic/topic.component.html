@@ -1,9 +1,10 @@
+<a *ngIf="canDelete" id="delete" href="#" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-warning-sign"></span> Delete Question</a>
+
 <h1>{{topic}}</h1>
 Asked By: {{questionAuthor}}: <textarea autosize class="answer" disabled  cols="150">{{questionText}}</textarea> <hr>
 
-
 <ul>
-  <li *ngFor="let ref of answersRefs | async"><div>{{ref.author}} - {{ref.date | date}}</div> 
+  <li *ngFor="let ref of answersRefs | async"><div>{{ref.author}} - {{ref.date | date}}</div>
   <textarea autosize class="answer" disabled  cols="150">{{ref.text}}</textarea> <hr></li>
 </ul>
 
@@ -14,4 +15,3 @@ Asked By: {{questionAuthor}}: <textarea autosize class="answer" disabled  cols="
   <br>
   <div class="btn btn-primary btn-primary" ><input class="post" type="submit" value="Post Your Answer"></div>
 </form>
-

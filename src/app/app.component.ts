@@ -55,6 +55,7 @@ export class AppComponent implements OnInit {
     }, (err) => {
       console.log(err.message);
     });
+    this.router.navigate(['/home']);
   }
 
    // This router naviget to the right sub-categorie
