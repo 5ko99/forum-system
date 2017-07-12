@@ -63,4 +63,5 @@ export class AppComponent implements OnInit {
     this.sharedService.categorieToAks = categorie.$key;
     this.router.navigate(['/categorie/', categorie.$key]);
   }
+
 }

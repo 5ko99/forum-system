@@ -36,11 +36,8 @@ export class AskComponent implements OnInit {
       }
     });
 
-<<<<<<< HEAD
   }
 
-=======
->>>>>>> 323cbbbd3f6b084ba1331f7448b04bc0d12221e8
   onSubmit(myForm: NgForm) {
     if (myForm.form.value.selectbasic && myForm.form.value.title && myForm.form.value.postText && myForm.form.valid) {
       const categorie: string = myForm.form.value.selectbasic;
