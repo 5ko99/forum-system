@@ -24,7 +24,10 @@ export class TopicComponent implements OnInit {
   answersRefs;
   questionText: string;
   questionAuthor: string;
+<<<<<<< HEAD
   canDelete = false;
+=======
+>>>>>>> 323cbbbd3f6b084ba1331f7448b04bc0d12221e8
   constructor(private sharedService: SharedService, private userService: UsersService, private dataService: DataService,
     private route: ActivatedRoute) {
     this.authInfo = this.userService.authInfo;
