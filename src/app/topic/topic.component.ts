@@ -9,6 +9,8 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs/Rx';
 import * as firebase from 'firebase/auth';
+import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -24,34 +26,29 @@ export class TopicComponent implements OnInit {
   answersRefs;
   questionText: string;
   questionAuthor: string;
-  canDelete = false;
+  data: string;
   constructor(private sharedService: SharedService, private userService: UsersService, private dataService: DataService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute, private router: Router) {
     this.authInfo = this.userService.authInfo;
   }
 
   ngOnInit() {
     // Get from db and url info abbout this topic the link is pasted
     this.route.url.subscribe((url) => {
-      const data: string = '/categories/' + url[0].path + '/' + url[1].path;
-      const dataRef = this.dataService.getData(data);
+      this.data = '/categories/' + url[0].path + '/' + url[1].path;
+      const dataRef = this.dataService.getData(this.data);
       dataRef.subscribe((snapshot) => {
         // Work with data
         this.topic = snapshot.title;
         this.questionText = snapshot.text;
         this.questionAuthor = snapshot.author;
       });
-      this.answersRefs = this.dataService.getDataList(data + '/answers');
+      this.answersRefs = this.dataService.getDataList(this.data + '/answers');
       this.urlPath[0] = url[0].path;
       this.urlPath[1] = url[1].path;
     });
-
-    if(this.questionAuthor === this.sharedService.loggedUser){
-      this.canDelete = true;
-    }
   }
 
-  // TODO: Save no email info and username to user
   addPost(myForm: NgForm) {
     // Add post to db
     let post: Comment;
@@ -63,6 +60,22 @@ export class TopicComponent implements OnInit {
       const path = '/categories/' + this.urlPath[0] + '/' + this.urlPath[1] + '/answers/';
       this.dataService.writeAnswer(path, post);
     });
+  }
+
+  deleteQestion(): void {
+    if (confirm('Are you sure you want to delete this question?')) {
+      this.dataService.deleteQuestion(this.data).then((snapshot) => {
+        this.router.navigate(['/home']);
+        alert('Successful deleted question!');
+      });
+    }
+  }
+
+  deleteAnswer(ref): void {
+    if (confirm('Are you sure you want to delete this answer?')) {
+      const path = this.data + '/answers/' + ref.$key;
+      this.dataService.deleteQuestion(path);
+    }
   }
 
 }

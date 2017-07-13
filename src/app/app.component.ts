@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
   userInfo: FirebaseObjectObservable<any>;
   private categories: FirebaseListObservable<any>;
   constructor(private sharedService: SharedService, private userService: UsersService, private dataService: DataService,
-  private router: Router) {
+    private router: Router) {
     this.authInfo = this.userService.authInfo;
     this.categories = this.dataService.getDataList('/categories');
   }
@@ -58,7 +58,7 @@ export class AppComponent implements OnInit {
     this.router.navigate(['/home']);
   }
 
-   // This router naviget to the right sub-categorie
+  // This router naviget to the right sub-categorie
   private onSelect(categorie) {
     this.sharedService.categorieToAks = categorie.$key;
     this.router.navigate(['/categorie/', categorie.$key]);

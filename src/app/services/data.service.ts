@@ -1,12 +1,12 @@
 import { Question } from '../models/question.model';
-import {Comment} from '../models/comment.model';
+import { Comment } from '../models/comment.model';
 import { DatabaseSnapshot } from 'angularfire2/interfaces';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
-import {Generator} from 'firebase-auto-ids';
+import { Generator } from 'firebase-auto-ids';
 
 @Injectable()
 export class DataService {
@@ -31,6 +31,7 @@ export class DataService {
       text: question.getText(),
       date: question.getDate()
     });
+    const item1Observable = this.db.object('/users/');
   }
 
   public writeAnswer(path: string, question: Comment): void {
@@ -45,21 +46,8 @@ export class DataService {
     });
   }
 
-
-
-  // addBook(title: string, author: string) {
-  //   let id;
-  //   this.books
-  //     .subscribe((snapshot) => {
-  //       console.log(snapshot.length);
-  //       id = snapshot.length;
-  //       return id;
-  //     });
-
-  //   console.log('Complete!');
-  //   this.db.database.ref('/books/' + id).set({
-  //     author: author,
-  //     tittle: title
-  //   });
-  // }
+  public deleteQuestion(questionPath: string): firebase.Promise<void> {
+    const itemObservable = this.db.object(questionPath);
+    return itemObservable.remove();
+  }
 }

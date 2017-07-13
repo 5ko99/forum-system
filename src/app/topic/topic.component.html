@@ -1,10 +1,14 @@
-<a *ngIf="canDelete" id="delete" href="#" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-warning-sign"></span> Delete Question</a>
+<button (click)="deleteQestion()" *ngIf="questionAuthor===this.sharedService.loggedUser" id="delete" class="btn btn-sm btn-danger">
+  <span class="glyphicon glyphicon-warning-sign"></span> Delete Question</button>
 
 <h1>{{topic}}</h1>
-Asked By: {{questionAuthor}}: <textarea autosize class="answer" disabled  cols="150">{{questionText}}</textarea> <hr>
+Asked By: {{questionAuthor}}: <textarea autosize class="answer" disabled cols="150">{{questionText}}</textarea>
+<hr>
 
 <ul>
-  <li *ngFor="let ref of answersRefs | async"><div>{{ref.author}} - {{ref.date | date}}</div>
+  <li *ngFor="let ref of answersRefs | async">
+    <button (click)="deleteAnswer(ref)" *ngIf="this.sharedService.loggedUser==ref.author" id="delete" class="btn btn-sm btn-danger">Delete Answer</button>
+    <div>{{ref.author}} - {{ref.date | date}}</div>
   <textarea autosize class="answer" disabled  cols="150">{{ref.text}}</textarea> <hr></li>
 </ul>
 

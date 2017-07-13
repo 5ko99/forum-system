@@ -7,7 +7,7 @@ import { FirebaseListObservable } from 'angularfire2/database/firebase_list_obse
 import { Observable } from 'rxjs/Rx';
 import * as firebase from 'firebase/auth';
 import { UsersService } from '.././services/users.service';
-import {Router} from '@angular/router'
+import { Router } from '@angular/router';
 
 
 // TODO: Reach this page only if I am logged with one if return to login page if i am not
@@ -21,7 +21,7 @@ export class AskComponent implements OnInit {
   authInfo: Observable<firebase.UserInfo>;
   logged = false;
   constructor(private dataService: DataService, private sharedService: SharedService, private userService: UsersService,
-  private router: Router) {
+    private router: Router) {
     this.authInfo = this.userService.authInfo;
     this.categories = this.dataService.getDataList('/categories');
   }
@@ -31,7 +31,7 @@ export class AskComponent implements OnInit {
       if (snapshot) {
         this.logged = true;
       }
-      if(!this.logged){
+      if (!this.logged) {
         this.router.navigate(['/sign']);
       }
     });
@@ -47,7 +47,7 @@ export class AskComponent implements OnInit {
       const questionText: string = myForm.form.value.postText;
       const question: Question = new Question(userName, title, questionText);
       this.dataService.writeQuestion(path, question);
-      this.router.navigate(['/categorie/Web%20Development']);
+      this.router.navigate(['/categorie/' + categorie]);
     } else {
       alert('Please Select Categorie, enter Title and Text to the question');
     }

@@ -30,19 +30,19 @@ export class SignComponent implements OnInit {
       // Login Part
       this.userService.login(email, password).then((user) => {
         // Logged
-        this.router.navigate(['/']);
+        this.router.navigate(['/home']);
       }).catch((err) => {
-        console.log(err.message);
+        alert('Wrong password or E-Mail!');
       });
     } else {
       // Register Part
       const username: string = myForm.form.value.username;
       this.userService.register(email, password, username).then((user) => {
         // Registered
-        this.router.navigate(['/']);
+        this.router.navigate(['/home']);
       }).catch((err) => {
         // Get error
-        console.log(err.message);
+        alert(err.message);
       });
     }
     return false;
