@@ -29,7 +29,7 @@ export class AskComponent implements OnInit {
   ngOnInit() {
     this.authInfo.subscribe((snapshot) => {
       if (snapshot) {
-        this.logged=true;
+        this.logged = true;
       }
       if(!this.logged){
         this.router.navigate(['/sign']);
